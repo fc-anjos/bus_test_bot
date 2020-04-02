@@ -18,19 +18,24 @@ end
 def select_lines(bot, lines)
   bot.listen do |message|
     options = @display.prepare_selection(lines)
-    choice = nil
-    until choice
-      begin
-        choice = message.text.to_i
-      rescue StandardError
-        bot.api.send_message(chat_id: message.chat.id, text: 'Invalid number selected!')
-      end
-    end
+    choice = rescued_choice(message)
     return options[choice - 1] if choice <= options.length && choice.positive?
 
     bot.api.send_message(chat_id: message.chat.id, text: 'Invalid number selected!')
     return false
   end
+end
+
+def rescued_choice(message)
+  choice = nil
+  until choice
+    begin
+      choice = message.text.to_i
+    rescue StandardError
+      bot.api.send_message(chat_id: message.chat.id, text: 'Invalid number selected!')
+    end
+  end
+  choice
 end
 
 def show_stops(message, line_code, bot)
