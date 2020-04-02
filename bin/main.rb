@@ -69,7 +69,7 @@ end
 
 Telegram::Bot::Client.run(token) do |bot|
   @connection = Connection.new
-  @display = Display.new
+  display = Display.new
 
   bot.listen do |message|
     case message.text
