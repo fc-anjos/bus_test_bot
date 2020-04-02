@@ -18,7 +18,7 @@ end
 def select_lines(bot, lines)
   bot.listen do |message|
     options = @display.prepare_selection(lines)
-    choice = rescued_choice(message)
+    choice = rescued_choice(message, options)
     return options[choice - 1] if choice <= options.length && choice.positive?
 
     bot.api.send_message(chat_id: message.chat.id, text: 'Invalid number selected!')
@@ -26,7 +26,7 @@ def select_lines(bot, lines)
   end
 end
 
-def rescued_choice(message)
+def rescued_choice(message, _options)
   choice = nil
   until choice
     begin
@@ -53,7 +53,7 @@ end
 
 def select_stop(message, bot, stops_hash)
   options = @display.prepare_selection(stops_hash)
-  choice = message.text.to_i
+  choice = rescued_choice(message)
   return options[choice - 1] if choice <= options.length && choice.positive?
 
   bot.api.send_message(chat_id: message.chat.id, text: 'Invalid stop selected!')
