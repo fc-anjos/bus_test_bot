@@ -2,7 +2,7 @@ require 'rubygems'
 require 'telegram/bot'
 require_relative '../lib/display'
 require_relative '../lib/api_connection'
-token = '1264447390:AAEDd4XGzc7vzQD9CaRS2Nfr8fRTefIh_iI'
+token = ENV['TELEGRAM_TOKEN'].to_s
 
 def show_lines(message, bot)
   lines = @connection.lines(message)
@@ -84,13 +84,13 @@ Telegram::Bot::Client.run(token) do |bot|
       'To start you first search, just type a bus number or part of it\'s name ')
       bot.api.send_message(chat_id: message.chat.id, text: '(e.g. 8000)')
 
-    else
-      line_code = nil
-      line_code = show_lines(message, bot) until line_code
-      bot.api.send_message(chat_id: message.chat.id, text: 'Please select your stop by typing an option number')
-      bot.api.send_message(chat_id: message.chat.id, text: 'Options:')
-      stop_code = show_stops(message, line_code, bot)
-      message_arrival_time(message, bot, stop_code, line_code)
+      #     else
+      #       line_code = nil
+      #       line_code = show_lines(message, bot) until line_code
+      #       bot.api.send_message(chat_id: message.chat.id, text: 'Please select your stop by typing an option number')
+      #       bot.api.send_message(chat_id: message.chat.id, text: 'Options:')
+      #       stop_code = show_stops(message, line_code, bot)
+      #       message_arrival_time(message, bot, stop_code, line_code)
     end
   end
 end
