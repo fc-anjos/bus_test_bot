@@ -87,6 +87,7 @@ Telegram::Bot::Client.run(token) do |bot|
 
       #     else
       #       line_code = nil
+
       #       line_code = show_lines(message, bot) until line_code
       #       bot.api.send_message(chat_id: message.chat.id, text: 'Please select your stop by typing an option number')
       #       bot.api.send_message(chat_id: message.chat.id, text: 'Options:')
