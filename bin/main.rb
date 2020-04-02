@@ -2,6 +2,7 @@ require 'rubygems'
 require 'telegram/bot'
 require_relative '../lib/display'
 require_relative '../lib/api_connection'
+
 token = '1264447390:AAEDd4XGzc7vzQD9CaRS2Nfr8fRTefIh_iI'
 
 def show_lines(message, bot, connection, display)
